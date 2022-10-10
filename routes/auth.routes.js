@@ -19,19 +19,46 @@ router.get("/signup", isLoggedOut, (req, res) => {
 });
 
 router.post("/signup", isLoggedOut, (req, res) => {
-  const { username, password } = req.body;
+  const { name, surname, email, passwordHash } = req.body;
 
-  if (!username) {
-    return res.status(400).render("auth/signup", {
-      errorMessage: "Please provide your username.",
-    });
+  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  if (!regex.test(password)) {
+    res.status(400).render('auth/signup', { errorMessage: 'Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.' });
+    return;
   }
 
-  if (password.length < 8) {
-    return res.status(400).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 8 characters long.",
+  bcrypt
+    .genSalt(saltRounds)
+    .then(salt => {
+      return bcrypt.hash(password, salt)
+    })
+    .then((hash) => {
+      const userDetails = {
+        name,
+        surname,
+        email,
+        passwordHash: hash
+      }
+
+      return User.create(userDetails);
+    })
+    .then(userFromDB => {
+      res.redirect("/");
+    })
+    .catch(e => {
+      if (e instanceof mongoose.Error.ValidationError) {
+        res.status(400).render('auth/signup', { errorMessage: e.message });
+      } else if (e.code === 11000) {
+        res.status(400).render('auth/signup', { errorMessage: "Email already in use" });
+      } else {
+        next(e);
+      }
     });
-  }
+
+
+
+
+
 
   //   ! This use case is using a regular expression to control for special characters and min length
   /*
@@ -148,7 +175,7 @@ router.get("/logout", isLoggedIn, (req, res) => {
         .status(500)
         .render("auth/logout", { errorMessage: err.message });
     }
-    
+
     res.redirect("/");
   });
 });
