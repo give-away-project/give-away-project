@@ -9,12 +9,28 @@
   </head>
 
   <body>
-    <header>
+   <header>
       <p>
-        <a href="/signup">Sign up</a>
-        |
+         <a href="/adds">Adds</a> |
+         <a href="/adds/create">Create new add</a>
       </p>
-    </header>
+
+
+      <p>
+         {{#if userInSession}}
+            Hello, {{ userInSession.email }} |
+            <a href="/user-profile">Profile Page</a>
+            <br>
+            <form id="logout-form" action="/logout" method="POST">
+               <button>Logout</button>
+            </form>
+         {{else}}
+            <a href="/signup">Register</a> |
+            <a href="/login">Login</a> |
+         {{/if}}
+      </p>
+   </header>
+
     {{{body}}}
 
     <script src="/js/script.js"></script>
