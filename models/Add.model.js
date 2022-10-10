@@ -5,24 +5,19 @@ const addSchema = new Schema(
        title: {
         type: String,
         required: true, 
-        minlength: 5,
-        maxlength: 100,
        },
 
        description: {
         type: String,
-        required: true, 
-        minlength: 10,
-        maxlength: 300
+        required: true,      
        },
 
        imageUrl: {
         type: String,
-        required: false
        },
 
        isReserved: {
-        required: false,
+        type: Boolean,
        }, 
 
        category: {
@@ -35,15 +30,17 @@ const addSchema = new Schema(
             required: true
        }, 
 
-       location: {
-        city: String,
-        address: {
-            streetName: String,
-            postalCode: String
-        }
+       contactEmail: { 
+            type: String, 
+            required: true
        }, 
 
-       type: {
+       town: { 
+        type: String
+       },
+
+       typeOfAdd: {
+            type: String,
             enum: ['offer', 'request'], 
             required: true
        }
