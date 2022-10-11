@@ -10,6 +10,7 @@ const addSchema = new Schema(
      },
 
      category: {
+          type: String,
           enum: ['cinema', 'fine-art',  'litterature', 'music'],
           required: true
      },
@@ -25,6 +26,7 @@ const addSchema = new Schema(
        },
 
        condition: {
+          type: String,
           enum: ['new', 'very-good', 'good', 'average', 'to-fix'], 
           required: true
      },

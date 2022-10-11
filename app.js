@@ -22,6 +22,12 @@ const capitalized = require("./utils/capitalized");
 const projectName = "give-away-project";
 
 app.locals.appTitle = `${capitalized(projectName)} created with IronLauncher`;
+app.use((req, res, next)=>{
+    console.log("this is my middleware")
+    console.log(req.session.user);
+    res.locals.userInSession = req.session.user
+    next();
+})
 
 // 👇 Start handling routes here
 const index = require("./routes/index.routes");
@@ -29,6 +35,9 @@ app.use("/", index);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
+
+const addRoutes = require("./routes/add.routes");
+app.use("/", addRoutes);
 
 
 

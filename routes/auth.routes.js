@@ -130,7 +130,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 
         req.session.user = user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        return res.redirect("/");
+        return res.redirect("/user-profile");
       });
     })
 
@@ -142,16 +142,19 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     });
 });
 
-router.get("/logout", isLoggedIn, (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res
-        .status(500)
-        .render("auth/logout", { errorMessage: err.message });
-    }
+//USER-PROFILE
+router.get('/user-profile', isLoggedIn, (req, res) => {
+  res.render('users/user-profile');
+});
 
-    res.redirect("/");
-  });
+router.post("/logout", isLoggedIn, (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+        next(err);
+    } else {
+        res.redirect('/');
+    }
+});
 });
 
 module.exports = router;
