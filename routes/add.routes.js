@@ -36,12 +36,56 @@ router.post("/adds/create", isLoggedIn, (req, res, next) => {
         condition: req.body.condition,
         imageUrl: req.body.imageUrl,
         town: req.body.town,
-        contactEmail: req.body.contactEmail,
+        contactEmail: req.body.contactEmail
     }
 
+
+    if(!addDetails.typeOfAdd){
+        return res.status(400).render("adds/add-create", {
+                 errorMessage: "Please select a type of ad.",
+                  });
+    }
+
+    if(!addDetails.category ){
+        return res.status(400).render("adds/add-create", {
+                 errorMessage: "Please select a category.",
+                  });
+    }
+
+    if(!addDetails.title ){
+        return res.status(400).render("adds/add-create", {
+                 errorMessage: "Please make sure to choose a title.",
+                  });
+    }
+
+    if(!addDetails.description){
+        return res.status(400).render("adds/add-create", {
+            errorMessage: "Please describe your item.",
+             });
+    }
+
+    if(!addDetails.condition ){
+        return res.status(400).render("adds/add-create", {
+                 errorMessage: "Please select a condition.",
+                  });
+    }
+
+    if(!addDetails.town ){
+        return res.status(400).render("adds/add-create", {
+                 errorMessage: "Please add your town.",
+                  });
+    }
+
+    if(!addDetails.contactEmail ){
+        return res.status(400).render("adds/add-create", {
+                 errorMessage: "Please provide your email.",
+                  });
+    }
+
+    
     Add.create(addDetails)
         .then(addDetails => {
-            res.redirect("adds/adds-list");
+            res.redirect("/adds");
         })
         .catch(err => {
             console.log("Error", err);
@@ -97,7 +141,6 @@ router.post("/adds/:addId/edit", isLoggedIn, (req, res, next) => {
 //READ ADDS
 router.get("/adds", (req, res, next) => {
     Add.find()
-        .populate("town")
         .then(addDb => {
             res.render("adds/adds-list", { add: addDb })
         })
@@ -108,13 +151,12 @@ router.get("/adds", (req, res, next) => {
 });
 
 //READ ADD DETAILS
-router.get("/adds/:addId",isLoggedIn,  (req, res, next) => {
+router.get("/adds/:addId", isLoggedIn, (req, res, next) => {
     const id = req.params.addId;
 
     Add.findById(id)
-        .populate("town")
         .then(addDetails => {
-            res.render("adds/adds-details", addDetails);
+            res.render("adds/add-details", addDetails);
         })
         .catch(err => {
             console.log("Error", err);
@@ -138,7 +180,6 @@ router.post("/adds/:addId/delete", isLoggedIn, (req, res, next) => {
 });
 
 
-  
 
-  module.exports = router;
-  
+
+module.exports = router;

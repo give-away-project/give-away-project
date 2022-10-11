@@ -1,0 +1,36 @@
+<section class="add-detail">
+  <h2>{{title}}</h2>
+
+  <p>
+    {{imageUrl}}
+    <h4>{{description}}</h4>
+    <br />
+    <br />
+    <br />
+  </p>
+  <p>
+    <strong>Conditions:</strong>{{condition}}
+    <br />
+
+  </p>
+  <p>
+    <strong>Contacts:</strong>{{contactEmail}}
+    <h4>{{category}}</h4>
+    <br />
+  </p>
+  <p>
+    <h4>Location:</h4>
+    {{town}}
+    <br />
+
+  </p>
+
+  <p>
+    <form action="/adds/{{_id}}/delete" method="POST">
+      <button>Delete</button>
+    </form>
+  </p>
+
+</section>
+
+<a href="/adds">Back</a>

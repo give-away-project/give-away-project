@@ -11,14 +11,14 @@
   <body>
    <header>
       <p>
-         <a href="/adds">Adds</a> |
-         <a href="/adds/create">Create new add</a>
+         <a href="/adds">Ads</a> |
+         <a href="/adds/create">Create new ad</a>
       </p>
 
 
       <p>
          {{#if userInSession}}
-            Hello, {{ userInSession.email }} |
+            Hello, {{ userInSession.name }} |
             <a href="/user-profile">Profile Page</a>
             <br>
             <form id="logout-form" action="/logout" method="POST">

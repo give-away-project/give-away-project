@@ -1,9 +1,15 @@
-<h2>Create an add</h2>
+<h2>Create an ad</h2>
+
+ {{#if errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+    
+{{/if}}
+
 
 <form action="/adds/create" method="post">
 
 <fielset>
-    <legend>Select your type of add</legend>
+    <legend>Select your type of ad</legend>
 <div>
       <input type="radio" id="offer" name="typeOfAdd" value="offer"
              checked>

@@ -108,7 +108,6 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     res.render('auth/login', { errorMessage: 'Please enter both, email and password to login.' });
     return;
   } 
-  
 
   // Search the database for a user with the username submitted in the form
   User.findOne({ email })

@@ -6,29 +6,29 @@ const addSchema = new Schema(
      typeOfAdd: {
           type: String,
           enum: ['offer', 'request'], 
-          required: true
+          required: [true, 'Choose a type of ad.']
      },
 
      category: {
           type: String,
           enum: ['cinema', 'fine-art',  'litterature', 'music'],
-          required: true
+          required: [true, 'Select a category.']
      },
 
        title: {
         type: String,
-        required: true, 
+        required: [true, 'The title is required.']
        },
 
        description: {
         type: String,
-        required: true,      
+        required: [true, 'Describe your item.']    
        },
 
        condition: {
           type: String,
           enum: ['new', 'very-good', 'good', 'average', 'to-fix'], 
-          required: true
+          required: [true, 'Select a condition.']
      },
 
        imageUrl: {
@@ -41,7 +41,7 @@ const addSchema = new Schema(
   
        contactEmail: { 
             type: String, 
-            required: true
+            required: [true, 'Provide your email.']
        }
    
     }

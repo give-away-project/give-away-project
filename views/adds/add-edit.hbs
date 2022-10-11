@@ -1,0 +1,65 @@
+<h2>Edit: {{title}}</h2>
+
+
+<form action="/adds/{{_id}}/edit" method="post">
+  <label> Title:
+    <input type="text" name="title" value="{{title}}" />
+  </label>
+
+<label> Description:
+    <textarea name="description" cols="30" rows="4" > {{description}} </textarea>
+</label>
+
+
+<label for="category-select">Choose a category:</label>
+
+<select name="category" id="category-select" value="{{category}}">
+    <option value="">--Please choose an option--</option>
+    <option value="cinema">Cinema</option>
+    <option value="fine-art">Fine Art</option>
+    <option value="litterature">Litterature</option>
+    <option value="music">Music</option>
+</select>
+
+<fielset>
+
+    <legend>Condition</legend>
+<div>
+      <input type="radio" id="new" name="condition" value="{{condition}}" >
+      <label for="new">New</label>
+</div>
+
+<div>
+      <input type="radio" id="very-good" name="condition" value="{{condition}}">
+      <label for="very-good">Very Good</label>
+</div>
+
+<div>
+      <input type="radio" id="good" name="condition" value="{{condition}}">
+      <label for="good">Good</label>
+</div>
+
+<div>
+      <input type="radio" id="average" name="condition" value="{{condition}}">
+      <label for="average">Average</label>
+</div>
+
+<div>
+      <input type="radio" id="to-fix" name="condition" value="{{condition}}">
+      <label for="to-fix">To Fix</label>
+</div>
+
+
+</fielset>
+
+
+<label> Contact:
+    <input type="text" name="contactEmail" value="{{contactEmail}}" />
+</label>
+
+<label> Town:
+    <input type="text" name="town" value="{{town}}"/>
+</label>
+
+<button>Save changes</button>
+</form>
