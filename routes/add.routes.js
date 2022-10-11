@@ -12,36 +12,23 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 
-// List all adds
-router.get("/adds", (req, res) => {
-    Add.find()
-    .then( addsFromDB => {
-        res.render("adds/adds-list", addsFromDB)
-    })
-    .catch( err => {
-      console.log("error getting adds from DB", err);
-      next(err);
-    })
-});
-
-//Adds details
-router.get("/adds/:addId", isLoggedIn,(req, res, next) => {
-    const id = req.params.addId;
-  
-    Add.findById(id)
-      .then( addDetails => {
-        res.render("adds/add-details", addDetails);
-      } )
-      .catch( err => {
-        console.log("error getting add details from DB", err);
-        next();
-      })
-  });
-
-  //CREATE: display form
+//CREATE ADDS
 router.get("/adds/create", isLoggedIn, (req, res, next) => {
+    Add.find()
+        .then((addArr) => {
+            res.render("adds/add-create", { addArr });
+        })
+        .catch(err => {
+            console.log("Error", err);
+            next(err);
+        })
+})
 
-    const addInformation = {
+
+
+router.post("/adds/create", isLoggedIn, (req, res, next) => {
+
+    const addDetails = {
         typeOfAdd: req.body.typeOfAdd,
         category: req.body.category,
         title: req.body.title,
@@ -49,31 +36,106 @@ router.get("/adds/create", isLoggedIn, (req, res, next) => {
         condition: req.body.condition,
         imageUrl: req.body.imageUrl,
         town: req.body.town,
-        contactEmail: req.body.contactEmail,   
+        contactEmail: req.body.contactEmail,
     }
 
     Add.create(addDetails)
-    .then(()=> {
-        res.redirect("/adds");
-    })
-    .catch(err => {
-        console.log("error creating new add in DB", err);
-        next(err);
-    })
+        .then(addDetails => {
+            res.redirect("adds/adds-list");
+        })
+        .catch(err => {
+            console.log("Error", err);
+            next(err);
+        })
 
-  });
+})
 
-  // Update: display form
-  router.get("/adds/:addId/edit", isLoggedIn, (req, res, next) => {
-    Book.findById(req.params.bookId)
-      .then( (bookDetails) => {
-        res.render("books/book-edit", bookDetails);
-      })
-      .catch( err => {
-        console.log("Error getting book details from DB...", err);
-        next();
-      });
-  });
+
+
+//EDIT ADDS
+
+router.get("/adds/:addId/edit", isLoggedIn, (req, res, next) => {
+    Add.findById(req.params.addId)
+        .then((addDetails) => {
+            res.render("adds/add-edit", addDetails);
+        })
+        .catch(err => {
+            console.log("Error", err);
+            next();
+        });
+});
+
+
+
+router.post("/adds/:addId/edit", isLoggedIn, (req, res, next) => {
+    const addId = req.params.addId;
+
+    const newAddDetails = {
+        typeOfAdd: req.body.typeOfAdd,
+        category: req.body.category,
+        title: req.body.title,
+        description: req.body.description,
+        condition: req.body.condition,
+        imageUrl: req.body.imageUrl,
+        town: req.body.town,
+        contactEmail: req.body.contactEmail,
+    }
+
+    Add.findByIdAndUpdate(addId, newAddDetails)
+        .then(() => {
+            res.redirect(`/adds/${addId}`);
+        })
+        .catch(err => {
+            console.log("Error", err);
+            next();
+        });
+});
+
+
+
+
+//READ ADDS
+router.get("/adds", (req, res, next) => {
+    Add.find()
+        .populate("town")
+        .then(addDb => {
+            res.render("adds/adds-list", { add: addDb })
+        })
+        .catch(err => {
+            console.log("Error", err);
+            next(err);
+        })
+});
+
+//READ ADD DETAILS
+router.get("/adds/:addId",isLoggedIn,  (req, res, next) => {
+    const id = req.params.addId;
+
+    Add.findById(id)
+        .populate("town")
+        .then(addDetails => {
+            res.render("adds/adds-details", addDetails);
+        })
+        .catch(err => {
+            console.log("Error", err);
+            next();
+        })
+});
+
+
+
+//DELETE ADDS
+router.post("/adds/:addId/delete", isLoggedIn, (req, res, next) => {
+    Add.findByIdAndDelete(req.params.addId)
+        .then(() => {
+            res.redirect("/adds");
+        })
+        .catch(err => {
+            console.log("Error", err);
+            next();
+        });
+
+});
 
 
   
