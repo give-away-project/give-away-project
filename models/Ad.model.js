@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
 
-const addSchema = new Schema(
+const adSchema = new Schema(
     { 
 
-     typeOfAdd: {
+     typeOfAd: {
           type: String,
           enum: ['offer', 'request'], 
           required: [true, 'Choose a type of ad.']
@@ -47,4 +47,4 @@ const addSchema = new Schema(
     }
     )
 
-    module.exports = model('Add', addSchema);
+    module.exports = model('Ad', adSchema);

@@ -36,8 +36,8 @@ app.use("/", index);
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
 
-const addRoutes = require("./routes/add.routes");
-app.use("/", addRoutes);
+const adRoutes = require("./routes/ad.routes");
+app.use("/", adRoutes);
 
 
 

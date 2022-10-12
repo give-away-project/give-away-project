@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const Add = require("../models/Add.model");
+const Ad = require("../models/Ad.model");
 
 const mongoose = require("mongoose");
 
@@ -12,11 +12,11 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 
-//CREATE ADDS
-router.get("/adds/create", isLoggedIn, (req, res, next) => {
-    Add.find()
-        .then((addArr) => {
-            res.render("adds/add-create", { addArr });
+//CREATE ADS
+router.get("/ads/create", isLoggedIn, (req, res, next) => {
+    Ad.find()
+        .then((adArr) => {
+            res.render("ads/ad-create", { adArr });
         })
         .catch(err => {
             console.log("Error", err);
@@ -26,10 +26,10 @@ router.get("/adds/create", isLoggedIn, (req, res, next) => {
 
 
 
-router.post("/adds/create", isLoggedIn, (req, res, next) => {
+router.post("/ads/create", isLoggedIn, (req, res, next) => {
 
-    const addDetails = {
-        typeOfAdd: req.body.typeOfAdd,
+    const adDetails = {
+        typeOfAd: req.body.typeOfAd,
         category: req.body.category,
         title: req.body.title,
         description: req.body.description,
@@ -40,52 +40,52 @@ router.post("/adds/create", isLoggedIn, (req, res, next) => {
     }
 
 
-    if(!addDetails.typeOfAdd){
-        return res.status(400).render("adds/add-create", {
+    if(!adDetails.typeOfAd){
+        return res.status(400).render("ads/ad-create", {
                  errorMessage: "Please select a type of ad.",
                   });
     }
 
-    if(!addDetails.category ){
-        return res.status(400).render("adds/add-create", {
+    if(!adDetails.category ){
+        return res.status(400).render("ads/ad-create", {
                  errorMessage: "Please select a category.",
                   });
     }
 
-    if(!addDetails.title ){
-        return res.status(400).render("adds/add-create", {
+    if(!adDetails.title ){
+        return res.status(400).render("ads/ad-create", {
                  errorMessage: "Please make sure to choose a title.",
                   });
     }
 
-    if(!addDetails.description){
-        return res.status(400).render("adds/add-create", {
+    if(!adDetails.description){
+        return res.status(400).render("ads/ad-create", {
             errorMessage: "Please describe your item.",
              });
     }
 
-    if(!addDetails.condition ){
-        return res.status(400).render("adds/add-create", {
+    if(!adDetails.condition ){
+        return res.status(400).render("ads/ad-create", {
                  errorMessage: "Please select a condition.",
                   });
     }
 
-    if(!addDetails.town ){
-        return res.status(400).render("adds/add-create", {
+    if(!adDetails.town ){
+        return res.status(400).render("ads/ad-create", {
                  errorMessage: "Please add your town.",
                   });
     }
 
-    if(!addDetails.contactEmail ){
-        return res.status(400).render("adds/add-create", {
+    if(!adDetails.contactEmail ){
+        return res.status(400).render("ads/ad-create", {
                  errorMessage: "Please provide your email.",
                   });
     }
 
     
-    Add.create(addDetails)
-        .then(addDetails => {
-            res.redirect("/adds");
+    Ad.create(adDetails)
+        .then(adDetails => {
+            res.redirect("/ads");
         })
         .catch(err => {
             console.log("Error", err);
@@ -96,12 +96,12 @@ router.post("/adds/create", isLoggedIn, (req, res, next) => {
 
 
 
-//EDIT ADDS
+//EDIT ADS
 
-router.get("/adds/:addId/edit", isLoggedIn, (req, res, next) => {
-    Add.findById(req.params.addId)
-        .then((addDetails) => {
-            res.render("adds/add-edit", addDetails);
+router.get("/ads/:adId/edit", isLoggedIn, (req, res, next) => {
+    Ad.findById(req.params.adId)
+        .then((adDetails) => {
+            res.render("ads/ad-edit", adDetails);
         })
         .catch(err => {
             console.log("Error", err);
@@ -111,11 +111,11 @@ router.get("/adds/:addId/edit", isLoggedIn, (req, res, next) => {
 
 
 
-router.post("/adds/:addId/edit", isLoggedIn, (req, res, next) => {
-    const addId = req.params.addId;
+router.post("/ads/:adId/edit", isLoggedIn, (req, res, next) => {
+    const adId = req.params.adId;
 
-    const newAddDetails = {
-        typeOfAdd: req.body.typeOfAdd,
+    const newAdDetails = {
+        typeOfAd: req.body.typeOfAd,
         category: req.body.category,
         title: req.body.title,
         description: req.body.description,
@@ -125,9 +125,9 @@ router.post("/adds/:addId/edit", isLoggedIn, (req, res, next) => {
         contactEmail: req.body.contactEmail,
     }
 
-    Add.findByIdAndUpdate(addId, newAddDetails)
+    Ad.findByIdAndUpdate(adId, newAdDetails)
         .then(() => {
-            res.redirect(`/adds/${addId}`);
+            res.redirect(`/adds/${adId}`);
         })
         .catch(err => {
             console.log("Error", err);
@@ -139,10 +139,10 @@ router.post("/adds/:addId/edit", isLoggedIn, (req, res, next) => {
 
 
 //READ ADDS
-router.get("/adds", (req, res, next) => {
-    Add.find()
-        .then(addDb => {
-            res.render("adds/adds-list", { add: addDb })
+router.get("/ads", (req, res, next) => {
+    Ad.find()
+        .then(adDb => {
+            res.render("ads/ads-list", { ad: adDb })
         })
         .catch(err => {
             console.log("Error", err);
@@ -151,12 +151,12 @@ router.get("/adds", (req, res, next) => {
 });
 
 //READ ADD DETAILS
-router.get("/adds/:addId", isLoggedIn, (req, res, next) => {
-    const id = req.params.addId;
+router.get("/ads/:adId", isLoggedIn, (req, res, next) => {
+    const id = req.params.adId;
 
-    Add.findById(id)
-        .then(addDetails => {
-            res.render("adds/add-details", addDetails);
+    Ad.findById(id)
+        .then(adDetails => {
+            res.render("ads/ad-details", adDetails);
         })
         .catch(err => {
             console.log("Error", err);
@@ -167,10 +167,10 @@ router.get("/adds/:addId", isLoggedIn, (req, res, next) => {
 
 
 //DELETE ADDS
-router.post("/adds/:addId/delete", isLoggedIn, (req, res, next) => {
-    Add.findByIdAndDelete(req.params.addId)
+router.post("/ads/:adId/delete", isLoggedIn, (req, res, next) => {
+    Ad.findByIdAndDelete(req.params.adId)
         .then(() => {
-            res.redirect("/adds");
+            res.redirect("/ads");
         })
         .catch(err => {
             console.log("Error", err);
