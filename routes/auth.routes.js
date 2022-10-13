@@ -117,7 +117,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       if (!user) {
         return res
           .status(400)
-          .render("auth/login", { errorMessage: "Wrong email." });
+          .render("auth/login", { errorMessage: "Wrong credentials." });
       }
 
       // If user is found based on the email, check if the in putted password matches the one saved in the database
@@ -125,7 +125,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
         if (!isSamePassword) {
           return res
             .status(400)
-            .render("auth/login", { errorMessage: "Wrong password." });
+            .render("auth/login", { errorMessage: "Wrong credentials." });
         }
 
         req.session.user = user;
@@ -150,18 +150,12 @@ router.get('/user-profile', isLoggedIn, (req, res) => {
 
 
 router.get('/user-ads', isLoggedIn, (req, res, next) => {
-  Ad.find()
+  Ad.find({creator: req.session.user._id})
   .then( listAdfromDb => {
-    const userAd = listAdfromDb.filter( value => {
-      if( value.creator == req.session.creator){
-        console.log("Helllo hello  " + req.session.creator)
-        console.log("this is the..." + value.creator)
-        return value;
-      }
-    })
-       console.log("the array .." + userAd);
+      
+       console.log("the array .." + listAdfromDb);
     // console.log("Sesion logedin.. " + req.session.user._id);
-    res.render("users/user-ads", {list: userAd});
+    res.render("users/user-ads", {list:listAdfromDb});
 
   })
   .catch((err) => {

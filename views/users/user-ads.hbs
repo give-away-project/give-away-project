@@ -1,6 +1,22 @@
 <h1>My Ads</h1>
 
-{{list}}
-{{this._id}}
-{{!-- {{this.title}} --}}
+
+{{#each list}}
+    <section>
+        <h2>{{this.title}}</h2>
+        <h3>Type of Ad:</h3>
+        <p>{{this.typeOfAd}}</p>
+        <h3>Posted in the category:</h3>
+        <p>{{this.category}}</p>
+        <p>
+            <a href="/ads/{{_id}}">More details</a> |
+            <a href="/ads/{{_id}}/edit">Edit</a>
+        </p>
+         <p>
+        <form action="/ads/{{_id}}/delete" method="POST">
+        <button>Delete</button>
+        </form>
+    </section>
+{{/each}} 
+
 

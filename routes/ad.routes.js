@@ -40,7 +40,7 @@ router.post("/ads/create", isLoggedIn, (req, res, next) => {
         imageUrl: req.body.imageUrl,
         town: req.body.town,
         contactEmail: req.body.contactEmail,
-        creator: req.body.creator
+        creator: req.session.user._id
     }
 
 
@@ -89,7 +89,7 @@ router.post("/ads/create", isLoggedIn, (req, res, next) => {
     
     Ad.create(adDetails)
         .then(adDetails => {
-            res.redirect("/ads");
+            res.redirect("/user-ads");
         })
         .catch(err => {
             console.log("Error", err);
@@ -133,7 +133,8 @@ router.post("/ads/:adId/edit", isLoggedIn, (req, res, next) => {
     Ad.findByIdAndUpdate(adId, newAdDetails)
 
         .then(() => {
-            res.redirect(`/adds/${adId}`);
+            
+            res.redirect(`/user-ads`);
         })
         .catch(err => {
             console.log("Error", err);
@@ -180,7 +181,7 @@ router.get("/ads/:adId", isLoggedIn, (req, res, next) => {
 router.post("/ads/:adId/delete", isLoggedIn, (req, res, next) => {
     Ad.findByIdAndDelete(req.params.adId)
         .then(() => {
-            res.redirect("/ads");
+            res.redirect("/user-ads");
         })
         .catch(err => {
             console.log("Error", err);
