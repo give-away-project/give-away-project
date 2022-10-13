@@ -133,7 +133,7 @@ router.post("/ads/:adId/edit", isLoggedIn, (req, res, next) => {
     Ad.findByIdAndUpdate(adId, newAdDetails)
 
         .then(() => {
-            
+
             res.redirect(`/user-ads`);
         })
         .catch(err => {
@@ -174,6 +174,53 @@ router.get("/ads/:adId", isLoggedIn, (req, res, next) => {
 });
 
 
+// DISPLAY ADS FROM USER IN SESSION
+
+router.get('/user-ads', isLoggedIn, (req, res, next) => {
+    Ad.find({creator: req.session.user._id})
+    .then( listAdfromDb => {
+        
+         console.log("the array .." + listAdfromDb);
+      // console.log("Sesion logedin.. " + req.session.user._id);
+      res.render("users/user-ads", {list:listAdfromDb});
+  
+    })
+    .catch((err) => {
+      next(err); 
+    });
+    
+  });
+
+
+//READ ADS in user ads
+router.get("/user-ads", (req, res, next) => {
+    Ad.find()
+        .then(adDb => {
+            res.render("users/user-ads", { ad: adDb })
+        })
+        .catch(err => {
+            console.log("Error", err);
+            next(err);
+        })
+});
+
+  
+
+//READ ADS DETAILS FROM USER PROFILE
+router.get("/user-ads/:adId", isLoggedIn, (req, res, next) => {
+    const id = req.params.adId;
+
+    Ad.findById(id)
+        .then(adDetails => {
+            res.render("users/user-ad-details", adDetails);
+        })
+        .catch(err => {
+            console.log("Error", err);
+            next();
+        })
+});
+
+
 
 
 
@@ -187,7 +234,6 @@ router.post("/ads/:adId/delete", isLoggedIn, (req, res, next) => {
             console.log("Error", err);
             next();
         });
-
 });
 
 

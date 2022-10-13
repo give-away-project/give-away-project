@@ -9,28 +9,26 @@
   </head>
 
   <body>
-   <header>
-      <p>
-         <a href="/">Home</a> |
-         <a href="/ads/create">Create new ad</a> |
-         <a href="/user-ads">My Ads</a>
-      </p>
+  <nav>
+      <div><a href="/">Home</a></div>
+      <div><a href="/ads/create">Create new ad</a></div>
+      <div><a href="/user-ads">My Ads</a></div>
 
+      {{#if userInSession}}
+        Hello,
+        {{userInSession.name}}
 
-      <p>
-         {{#if userInSession}}
-            Hello, {{ userInSession.name }} |
-            <a href="/user-profile">Profile Page</a>
-            <br>
-            <form id="logout-form" action="/logout" method="POST">
-               <button>Logout</button>
-            </form>
-         {{else}}
-            <a href="/signup">Register</a> |
-            <a href="/login">Login</a> |
-         {{/if}}
-      </p>
-   </header>
+        <a href="/user-profile">Profile Page</a>
+        <br />
+        <form id="logout-form" action="/logout" method="POST">
+          <button>Logout</button>
+        </form>
+      {{else}}
+        <a href="/signup">Register</a>
+        <a href="/login">Login</a>
+      {{/if}}
+
+    </nav>
 
     {{{body}}}
 
@@ -38,3 +36,5 @@
   </body>
 
 </html>
+
+

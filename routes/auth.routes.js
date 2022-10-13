@@ -149,26 +149,6 @@ router.get('/user-profile', isLoggedIn, (req, res) => {
 });
 
 
-router.get('/user-ads', isLoggedIn, (req, res, next) => {
-  Ad.find({creator: req.session.user._id})
-  .then( listAdfromDb => {
-      
-       console.log("the array .." + listAdfromDb);
-    // console.log("Sesion logedin.. " + req.session.user._id);
-    res.render("users/user-ads", {list:listAdfromDb});
-
-  })
-  .catch((err) => {
-    next(err); 
-  });
-  
-});
-
-
-
-
-
-
 router.post("/logout", isLoggedIn, (req, res) => {
   req.session.destroy(err => {
     if (err) {
