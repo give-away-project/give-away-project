@@ -10,11 +10,14 @@ const User = require("../models/User.model");
 // Require necessary (isLoggedOut and isLoggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const { populate } = require("../models/Ad.model");
+
 
 
 //CREATE ADS
 router.get("/ads/create", isLoggedIn, (req, res, next) => {
     Ad.find()
+
         .then((adArr) => {
             res.render("ads/ad-create", { adArr });
         })
@@ -36,7 +39,8 @@ router.post("/ads/create", isLoggedIn, (req, res, next) => {
         condition: req.body.condition,
         imageUrl: req.body.imageUrl,
         town: req.body.town,
-        contactEmail: req.body.contactEmail
+        contactEmail: req.body.contactEmail,
+        creator: req.body.creator
     }
 
 
@@ -123,9 +127,11 @@ router.post("/ads/:adId/edit", isLoggedIn, (req, res, next) => {
         imageUrl: req.body.imageUrl,
         town: req.body.town,
         contactEmail: req.body.contactEmail,
+        creator: req.body.creator
     }
 
     Ad.findByIdAndUpdate(adId, newAdDetails)
+
         .then(() => {
             res.redirect(`/adds/${adId}`);
         })
@@ -138,7 +144,7 @@ router.post("/ads/:adId/edit", isLoggedIn, (req, res, next) => {
 
 
 
-//READ ADDS
+//READ ADDS in /ads
 router.get("/ads", (req, res, next) => {
     Ad.find()
         .then(adDb => {
@@ -149,6 +155,8 @@ router.get("/ads", (req, res, next) => {
             next(err);
         })
 });
+
+
 
 //READ ADD DETAILS
 router.get("/ads/:adId", isLoggedIn, (req, res, next) => {
@@ -163,6 +171,8 @@ router.get("/ads/:adId", isLoggedIn, (req, res, next) => {
             next();
         })
 });
+
+
 
 
 

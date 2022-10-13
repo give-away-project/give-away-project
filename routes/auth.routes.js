@@ -9,6 +9,7 @@ const saltRounds = 10;
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
+const Ad = require("../models/Ad.model");
 
 // Require necessary (isLoggedOut and isLoggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
@@ -142,9 +143,37 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 });
 
 //USER-PROFILE
+
 router.get('/user-profile', isLoggedIn, (req, res) => {
   res.render('users/user-profile');
 });
+
+
+router.get('/user-ads', isLoggedIn, (req, res, next) => {
+  Ad.find()
+  .then( listAdfromDb => {
+    const userAd = listAdfromDb.filter( value => {
+      if( value.creator == req.session.creator){
+        console.log("Helllo hello  " + req.session.creator)
+        console.log("this is the..." + value.creator)
+        return value;
+      }
+    })
+       console.log("the array .." + userAd);
+    // console.log("Sesion logedin.. " + req.session.user._id);
+    res.render("users/user-ads", {list: userAd});
+
+  })
+  .catch((err) => {
+    next(err); 
+  });
+  
+});
+
+
+
+
+
 
 router.post("/logout", isLoggedIn, (req, res) => {
   req.session.destroy(err => {

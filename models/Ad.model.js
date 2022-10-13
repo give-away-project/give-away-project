@@ -42,8 +42,13 @@ const adSchema = new Schema(
        contactEmail: { 
             type: String, 
             required: [true, 'Provide your email.']
-       }
-   
+       }, 
+
+       creator: { 
+          type: Schema.Types.ObjectId,
+          ref: "User"
+     },
+
     }
     )
 

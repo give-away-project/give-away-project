@@ -1,2 +1,10 @@
-<h1>{{appTitle}} 🚀</h1>
-<p>Welcome Ironhacker!</p>
+{{!-- <h1>{{appTitle}}</h1> --}}
+
+{{#each ad}}
+    <section>
+        <h2>{{this.title}}</h2>
+        <p>{{this.category}}</p>
+        <p>{{this.town}}</p>
+        <a href="/ads/{{_id}}">More details</a>
+    </section>
+{{/each}} 
