@@ -2,6 +2,9 @@ const router = require("express").Router();
 
 const Ad = require("../models/Ad.model");
 
+// ********* require fileUploader in order to use it *********
+const fileUploader = require('../config/cloudinary.config');
+
 const mongoose = require("mongoose");
 
 // Require the User model in order to interact with the database
@@ -17,7 +20,6 @@ const { populate } = require("../models/Ad.model");
 //CREATE ADS
 router.get("/ads/create", isLoggedIn, (req, res, next) => {
     Ad.find()
-
         .then((adArr) => {
             res.render("ads/ad-create", { adArr });
         })
@@ -29,7 +31,7 @@ router.get("/ads/create", isLoggedIn, (req, res, next) => {
 
 
 
-router.post("/ads/create", isLoggedIn, (req, res, next) => {
+router.post("/ads/create", fileUploader.single('imageUrl'), isLoggedIn, (req, res, next) => {
 
     const adDetails = {
         typeOfAd: req.body.typeOfAd,
@@ -37,7 +39,7 @@ router.post("/ads/create", isLoggedIn, (req, res, next) => {
         title: req.body.title,
         description: req.body.description,
         condition: req.body.condition,
-        imageUrl: req.body.imageUrl,
+        imageUrl: req.file.path,
         town: req.body.town,
         contactEmail: req.body.contactEmail,
         creator: req.session.user._id
@@ -88,11 +90,15 @@ router.post("/ads/create", isLoggedIn, (req, res, next) => {
 
     
     Ad.create(adDetails)
-        .then(adDetails => {
+        .then(newlyCreatedAdFromDB => {
+            console.log(newlyCreatedAdFromDB);
             res.redirect("/user-ads");
-        })
+        } )
+        // .then(adDetails => {
+        //     res.redirect("/user-ads");
+        // })
         .catch(err => {
-            console.log("Error", err);
+            console.log("Error while creating a new ad", err);
             next(err);
         })
 

@@ -47,9 +47,11 @@ const adSchema = new Schema(
        creator: { 
           type: Schema.Types.ObjectId,
           ref: "User"
-     },
-
-    }
+     }
+    },
+     {
+     timestamps: true
+     }
     )
 
     module.exports = model('Ad', adSchema);
