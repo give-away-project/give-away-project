@@ -2,4 +2,12 @@
 
 {{#if userInSession}}
   <h2>Welcome, {{ userInSession.name }}!</h2>
+
+ <h3>Name:</h>
+ <p>{{ userInSession.name }}</p>
+  <h3>Last Name:</h3>
+  <p>{{userInSession.surname}}</p>
+  <h3>Email:</h3>
+   <p>{{userInSession.email}}</p>
+
 {{/if}}

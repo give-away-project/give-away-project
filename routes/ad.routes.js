@@ -39,7 +39,7 @@ router.post("/ads/create", fileUploader.single('imageUrl'), isLoggedIn, (req, re
         title: req.body.title,
         description: req.body.description,
         condition: req.body.condition,
-        imageUrl: req.file.path,
+        imageUrl: req.file?.path,
         town: req.body.town,
         contactEmail: req.body.contactEmail,
         creator: req.session.user._id
