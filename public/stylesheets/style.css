@@ -1,44 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One');
+@import "compass/css3";
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Work Sans', sans-serif, cursive;
+  font-weight: 500;
+  background-color: #b7e3e4;
+  text-align: center;
+  } 
+
+  img{
+    width:auto;
+     max-width:15em;
   }
   
+  
+
   a {
-  color: #00b7ff;
-  }
-  
-  h1 {
-  color: 15px;
-  }
-  body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  }
-  
-  a {
+    font-family: 'Work Sans', sans-serif, cursive;
   color: #000000;
   text-decoration: none;
   }
   
-  h1 {
-  color: 15px;
+  
+h2{
+  color: #f03f35;
   }
   
   #welcome-div{
   text-align: center;
   }
   
-  h1{
-  font-family: Comic Sans MS, Tahoma, Serif; ;
+  h1, h2{
+    font-family: 'Work Sans', sans-serif, cursive;
+
   }
   
   nav{
-  display: flex;
+    font-family: 'Work Sans', sans-serif, cursive;
+    display: flex;
   text-align: center;
   justify-content: space-evenly;
   align-items:center ;
   flex-direction: row;
-  background-color: rgb(248, 231, 162);
+  background-color: #f7de9e;
   height: 50px; 
   box-shadow: 20px 20px 50px 10px rgb(255, 232, 131) inset,
   0 1px 2px rgba(0,0,0,0.07),
@@ -48,17 +58,12 @@ body {
   0 16px 32px rgba(0,0,0,0.07), 
   0 32px 64px rgba(0,0,0,0.07);
   border-radius: 5px;
+  margin-bottom: 50px;
+
   }
   
-  body {
-  background-color: rgb(240, 250, 255);
-  text-align: center;
-  }
   
-  input, textarea, select{
-  border-radius: 17px;
-  border-color: rgb(255, 255, 255);
-  }
+
   
   .create-div{
   display: flex;
@@ -68,13 +73,12 @@ body {
   }
   
   #description{
-  width: 400px;
+  width: 500px;
   height: 200px;
   }
   
   #select{
   width: 200px;
-  margin-right: 100px;
   align-self:center
   }
   
@@ -83,6 +87,49 @@ body {
   line-height: 1;
   
   }
+
+  #logo{
+    font-family: 'Ultra', sans-serif; 
+    font-weight: 500;
+  font-size:larger;
+  color: #f03f35;
+
+}
+  
+.color-logo{
+  color: #f03f35;
+}
+
+
+
+         BUTTONS
+
+  #class-container-button{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    max-width: 70;
+    margin: 2rem 0 0;
+
+  }
+
+
+
+ #class-button{
+ font-family: 'Work Sans', sans-serif, cursive;
+  border: 2px solid #302f3a;
+  color: #302f3a;
+  position: relative;
+  margin: 2rem 3rem;
+  padding: 0.9rem 1rem;
+  font-size: 1.15rem;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 5px;
+ }
+
+
+
   
   
   
@@ -99,8 +146,9 @@ body {
   }
   
   .button {
-  font-family: 'Fredoka One', cursive;
-  border: 4px solid #302f3a;
+  font-family: 'Work Sans', sans-serif, cursive;
+  font-weight: bold;
+  border: 2px solid #302f3a;
   color: #302f3a;
   position: relative;
   margin: 2rem 3rem;
@@ -118,7 +166,7 @@ body {
   left: -.6rem;
   top: -.5rem;
   z-index: -1;
-  background-color: #F7567C;
+  background-color: #f03f35;
   transition: all 200ms ease-out;
   }
   

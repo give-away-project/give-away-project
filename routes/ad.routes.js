@@ -154,6 +154,7 @@ router.post("/ads/:adId/edit", isLoggedIn, (req, res, next) => {
 //READ ADDS in /ads
 router.get("/ads", (req, res, next) => {
     Ad.find()
+        .sort({ updatedAt: -1 })
         .then(adDb => {
             res.render("ads/ads-list", { ad: adDb })
         })

@@ -6,13 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{appTitle}}</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Ultra"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat:900%7CWork+Sans:300"
+      rel="stylesheet"
+    />
+
   </head>
 
   <body>
-  <nav>
-      <div><a href="/">Home</a></div>
-      <div><a href="/ads/create">Create new ad</a></div>
-      <div><a href="/user-ads">My Ads</a></div>
+    <nav>
+      <div><a data-title="home" id="logo" href="/">Flying Shelf</a></div>
+      <div><a data-title="About" href="/ads/create">Create new ad</a></div>
+      <div><a data-title="Portfolio" href="/user-ads">My Ads</a></div>
 
       {{#if userInSession}}
         Hello,
@@ -20,12 +30,16 @@
 
         <a href="/user-profile">Profile Page</a>
         <br />
-        <form id="logout-form" action="/logout" method="POST">
-          <button>Logout</button>
-        </form>
+        <div>
+          <form id="logout-form" action="/logout" method="POST">
+            <button data-title="Blog" id="class-button">Logout</button>
+          </form>
+        </div>
       {{else}}
-        <a href="/signup">Register</a>
-        <a href="/login">Login</a>
+        <a data-title="Blog" href="/signup">Register</a>
+        <div>
+          <a data-title="Blog" id="class-button" href="/login">Login</a>
+        </div>
       {{/if}}
 
     </nav>
@@ -36,5 +50,4 @@
   </body>
 
 </html>
-
 

@@ -1,4 +1,6 @@
-<h2>Create an ad</h2>
+<fieldset >
+
+<legend>  <h2 class="color-logo">Create an ad</h2></legend>
 
  {{#if errorMessage}}
         <p class="error">{{errorMessage}}</p>
@@ -12,8 +14,8 @@
 <input type="file" name="imageUrl" class="form-control-file" />
 </label>
 
-<fielset>
-    <legend>Select your type of ad</legend>
+<div class="create-div">
+   <legend class="create-div"> Select your type of ad</legend>
 <div>
       <input type="radio" id="offer" name="typeOfAd" value="offer" checked>
       <label for="offer">Offer</label>
@@ -31,13 +33,13 @@
 </label>
 
 <label> Description:
-    <textarea name="description" cols="30" rows="4"> </textarea>
+    <textarea id="description" name="description" cols="30" rows="4"> </textarea>
 </label>
 
 
 <label for="category-select">Choose a category:</label>
 
-<select name="category" id="category-select">
+<select id="select" name="category" id="category-select">
     <option value="">--Please choose an option--</option>
     <option value="cinema">Cinema</option>
     <option value="fine-art">Fine Art</option>
@@ -45,9 +47,9 @@
     <option value="music">Music</option>
 </select>
 
-<fielset>
 
-    <legend>Condition</legend>
+  <legend>  Condition </legend>
+    <div class="list">
 <div>
       <input type="radio" id="new" name="condition" value="new">
       <label for="new">New</label>
@@ -72,19 +74,18 @@
       <input type="radio" id="to-fix" name="condition" value="to-fix">
       <label for="to-fix">To Fix</label>
 </div>
-
-
-</fielset>
+</div>
 
 
 <label> Contact:
-    <input type="text" name="contactEmail" />
+    <input type="text" name="contactEmail" required />
 </label>
 
 <label> Town:
-    <input type="text" name="town" />
+    <input type="text" name="town" required />
 </label>
 
 
-  <button type="submit"> Create </button>
+  </legend><button class="button" type="submit"> Create </button><legend>
+    </div>
 </form>
